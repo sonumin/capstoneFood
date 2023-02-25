@@ -6,45 +6,42 @@ import {LineChart,ProgressChart} from "react-native-chart-kit";
 
 
 const HomeScreen = () =>{
-    useEffect(() =>{
+    useEffect(()=>{
         convert();
-        setWeekData(arr);
-        console.log('d'+data);
-        console.log('i'+isLoading);
-        console.log('a'+arr);
-        console.log('w'+weekData);
-    },[data]);
+    },[isSuccess])
     const [weekData, setWeekData] = useState();
     const arr = [[],[],[],[],[]]
-    const {isLoading, data} = useQuery(['weekData'], async () => {
-        return await axios.get('http://192.168.0.166:50011/loadWeekData')
+    const {isLoading, isSuccess, data} = useQuery(['weekData'],  () => {
+        return  fetch('http://192.168.0.166:50011/loadWeekData').then((res)=> res.json())
+        
     });
     const convert = async () =>{
-        if(!isLoading){
+        if(isSuccess){
             for(let i = 0; i < 7; i++){
-                arr[0][i] = data.data[i]['date'].substring(5,)
-                arr[1][i] = data.data[i]['kacl']
-                arr[2][i] = data.data[i]['carbo']
-                arr[3][i] = data.data[i]['province']
-                arr[4][i] = data.data[i]['protein']
+                arr[0][i] = data[i]['date'].substring(5,)
+                arr[1][i] = data[i]['kacl']
+                arr[2][i] = data[i]['carbo']
+                arr[3][i] = data[i]['province']
+                arr[4][i] = data[i]['protein']
             }
+            setWeekData(arr)
         }
     }
     return(
-        !isLoading&&<View style={styles.screen}>
-            <View>
+        <View style={styles.screen}>
+            {isSuccess&&<View>
                 <Text>Home Screen</Text>
-                <Text>{data.data[1]['date']}</Text>
-                <Text>{data.data[2]['date']}</Text>
-                <Text>{data.data[3]['date']}</Text>
-                <Text>{data.data[4]['date']}</Text>
-                <Text>{data.data[5]['date']}</Text>
-                <Text>{data.data[6]['date']}</Text>
-                {weekData&&<View>
-                    <Text>{weekData[0]}</Text>
-                    <Text>{weekData[1]}</Text>
-                </View>}
-            </View>
+                <Text>{data[1]['date']}</Text>
+                <Text>{data[2]['date']}</Text>
+                <Text>{data[3]['date']}</Text>
+                <Text>{data[4]['date']}</Text>
+                <Text>{data[5]['date']}</Text>
+                <Text>{data[6]['date']}</Text>
+                <Text>{weekData[0]}</Text>
+                <Text>{weekData[1]}</Text>
+                {/* <View>
+                </View> */}
+            </View>}
             {/* <View style={styles.graphContainer}>
                 <LineChart
                     data={{

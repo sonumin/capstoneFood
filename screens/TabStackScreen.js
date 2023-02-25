@@ -6,6 +6,7 @@ import DetailScreen from './DetailScreen';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+Ionicons.loadFont()
 
 const TabStack = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
