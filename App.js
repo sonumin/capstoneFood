@@ -9,12 +9,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const queryClient = new QueryClient()
 
 const App = () => {
-  const [Id, setId] = useState(-1);
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>

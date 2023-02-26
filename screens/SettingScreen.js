@@ -6,57 +6,62 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-const NineImages = () => {
-    
-    return(
-        <View style={styles.secondContainer}>
-            <View  style={styles.imageRow}>
-                <Image style={styles.imageBox} source={require('/Users/jongsik2/Desktop/RN/RN_food/egg-bread.png')}></Image>
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image> 
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image>
-            </View>
-            <View style={styles.imageRow}>
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image>
-                <Image style={styles.imageBox} source={require('/Users/jongsik2/Desktop/RN/RN_food/egg-bread.png')}></Image>
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image>
-            </View>
-            <View style={styles.imageRow}>
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image>
-                <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${' '}`}}></Image>
-                <Image style={styles.imageBox} source={require('/Users/jongsik2/Desktop/RN/RN_food/egg-bread.png')}></Image>
-            </View>
-        </View>
-    );
-}
 
 const SettingScreen = (route) =>{
+    const imgArray = []
     const userData = useQuery(['userData'], () => {
         return fetch('http://192.168.0.166:50011/loadUserData').then((res)=> res.json())
     });
-    // const imagesData = useQuery(['imageData'], () => {
-    //     return fetch('http://192.168.0.166:50011/load9Images').then((res)=> res.json())
-    // });
+    const imagesData = useQuery(['imageData'], () => {
+        return fetch('http://192.168.0.166:50011/load9Images').then((res)=> res.json())
+    });
     const [userProfile, setUserProfile] = useState();
     const [profileImg, setProfileImg] = useState();
     const [nineImages, setNineImages] = useState();
     // useEffect(()=>{
     //     console.log(result)
     // },[result])
+    const divideImages = () =>{
+        if(imagesData.data !== undefined){
+            for(let i = 0; i < 9; i++){
+                imgArray[i] = imagesData.data[i]['image_data']
+            }
+            setNineImages(imgArray)
+        }
+    }
     useEffect(()=>{
         if(userData){
-            console.log(userData.data)
             setUserProfile(userData.data)
         }
     },[userData])
-    // useEffect(()=>{
-    //     if(imagesData){
-    //         // setUserProfile(nineImages.data)
-    //         // console.log(imagesData)
-    //     }
-    // },[imagesData])
-    // const {nineImagesData} = useQuery(['nineImagesData'],  () => {
-    //     return (axios.get('http://192.168.0.166:50011/load9Images'))
-    // });
+    useEffect(()=>{
+        if((imagesData.data !== undefined)&&!nineImages){
+            divideImages()
+        }
+    },[imagesData])
+    const NineImages = () => {
+    
+        return(
+            nineImages&&
+            <View style={styles.secondContainer}>
+                <View  style={styles.imageRow}>
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[0]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[1]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[2]}`}}></Image> 
+                </View>
+                <View style={styles.imageRow}>
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[3]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[4]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[5]}`}}></Image> 
+                </View>
+                <View style={styles.imageRow}>
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[6]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[7]}`}}></Image> 
+                    <Image style={styles.imageBox} source={{uri:`data:image/jpeg;base64,${nineImages[8]}`}}></Image> 
+                </View>
+            </View>
+        );
+    }
 
     const openCamera = async () =>{
         const result = await launchCamera()
@@ -75,7 +80,8 @@ const SettingScreen = (route) =>{
         navigation.navigate("Send")
     }
     return(
-        userProfile&&<View style={styles.screen}>
+        nineImages&&userProfile&&
+        <View style={styles.screen}>
             <View style={styles.firstContainer}>
                 <View style={styles.profileContainer}>
                     <View style={styles.profile}>

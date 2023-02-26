@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         width:'38%',
         height:'25%',
         textAlign:'center',
-        fontSize:'18'
+        fontSize:18
     },
     textBox:{
         borderWidth:1,

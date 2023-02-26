@@ -62,11 +62,11 @@ const TabStackScreen = () =>{
         return <Ionicons name ={iconName} size = {size} color= {color}/>
                 },
             })}
-        tabBarOptions={{
-            activeTintColor:'black',
-            inactiveTintColor:'grey',
-        }}
-    >
+            tabBarOptions={{
+                activeTintColor:'black',
+                inactiveTintColor:'grey',
+            }}
+        >
             <TabStack.Screen name={HomeName} component = {HomeStackScreen} />
             <TabStack.Screen name ={DetailName} component = {DetailStackScreen} />
             <TabStack.Screen name ={SettingName} component = {SettingStackScreen}/> 
