@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View,Text, StyleSheet, Button, ActionSheetIOS, Image } from 'react-native';
+import { View,Text, StyleSheet, Button, ActionSheetIOS, Image, Pressable } from 'react-native';
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import axios from 'axios';
 
@@ -58,15 +59,28 @@ const DetailScreen = () =>{
     }
     return(
         <View style={styles.screen}>
-            <View style={styles.imageBox}>
-            {
-                foodImg && <Image source={{ uri: foodImg }}
-                style={styles.image} /> 
-            }    
+            <View style={styles.imageContainer}>
+                <View style={styles.imageBox}>
+                {
+                    foodImg && <Image source={{ uri: foodImg }}
+                    style={styles.image} /> 
+                }    
+                </View>
             </View>
-            <Text>Detail Screen</Text>
-            <Button title='actionSheet' onPress={actionSheet}></Button>
-            <Button title='recog' onPress={sendImg}></Button>
+            <View style={styles.labelContainer}>
+
+            </View>
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.button} onPress={actionSheet}>
+                    <Icon name="camera" size={24} color="#ffffff"> or <Icon name="copy" size={24} color="#ffffff" /></Icon>             
+                </Pressable>
+                <Pressable style={styles.button} onPress={sendImg}>
+                    <Icon name="send" size={24} color="#ffffff" />
+                </Pressable>
+                <Pressable style={styles.button}>
+                    <Icon name="save" size={24} color="#ffffff" />
+                </Pressable>
+            </View>
         </View>
     )
 }
@@ -77,11 +91,18 @@ const styles=StyleSheet.create({
     screen:{
         flex:1,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        backgroundColor:'white'
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:'100%',
+        height:"50%",
     },
     imageBox:{
-        width:'90%',
-        height:"50%",
+        width:'88%',
+        height:"88%",
         borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
@@ -94,6 +115,36 @@ const styles=StyleSheet.create({
           },
           shadowOpacity: 0.5,
           shadowRadius: 5,
+    },
+    labelContainer: {
+        width: '100%',
+        height:"35%",
+        alignItems:'center',
+    },
+    buttonContainer: {
+        width: '92%',
+        height: "15%",
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 100,
+        elevation: 3,
+        backgroundColor: 'black',
+        bored:'2',
+        shadowColor: "#000",
+          shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity: 0.5,
+        shadowRadius: 6,
     },
     image: {
         width:'100%',

@@ -5,6 +5,7 @@ import { View,Text } from 'react-native';
 import DetailScreen from './DetailScreen';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
+import EditUserScreen from './EditUserScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 Ionicons.loadFont()
 
@@ -20,7 +21,7 @@ const SettingName="내정보"
 const HomeStackScreen=()=>{
     return(
         <HomeStack.Navigator>
-            <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown:false}}/>
+            <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown:true}}/>
         </HomeStack.Navigator>
     )
 }
@@ -28,14 +29,15 @@ const HomeStackScreen=()=>{
 const DetailStackScreen=()=>{
     return(
         <DetailStack.Navigator>
-            <DetailStack.Screen name='Detail' component={DetailScreen} options={{headerShown:false}}/>
+            <DetailStack.Screen name='Detail' component={DetailScreen} options={{headerShown:true}}/>
         </DetailStack.Navigator>
     )
 }
 const SettingStackScreen=()=>{
     return(
         <SettingStack.Navigator>
-            <SettingStack.Screen name='Setting' component={SettingScreen} options={{headerShown:false}}/>
+            <SettingStack.Screen name='Setting' component={SettingScreen} options={{headerShown:true}}/>
+            <SettingStack.Screen name='Send' component={EditUserScreen} options={{headerShown:true}}/>
         </SettingStack.Navigator>
     )
 }
