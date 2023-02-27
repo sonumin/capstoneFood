@@ -18,10 +18,10 @@ const HomeScreen = () =>{
     const [persentData, setPersentData] = useState();
 
     const {isSuccess, data} = useQuery(['weekData'],  () => {
-        return fetch('http://192.168.0.166:50011/loadWeekData').then((res)=> res.json())
+        return fetch('http://123.199.90.18:5001/loadWeekData').then((res)=> res.json())
     });
     const userData = useQuery(['userData'], () => {
-        return fetch('http://192.168.0.166:50011/loadUserData').then((res)=> res.json())
+        return fetch('http://123.199.90.18:5001/loadUserData').then((res)=> res.json())
     });
     const convertWeek = () =>{
         if(isSuccess){

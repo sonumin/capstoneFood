@@ -7,6 +7,7 @@ import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
 import EditUserScreen from './EditUserScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LoginScreen from './LoginScreen';
 Ionicons.loadFont()
 
 const TabStack = createBottomTabNavigator();
@@ -68,6 +69,7 @@ const TabStackScreen = () =>{
             }}
         >
             <TabStack.Screen name={HomeName} component = {HomeStackScreen} />
+            <TabStack.Screen name='login' component = {LoginScreen} />
             <TabStack.Screen name ={DetailName} component = {DetailStackScreen} />
             <TabStack.Screen name ={SettingName} component = {SettingStackScreen}/> 
         </TabStack.Navigator>
